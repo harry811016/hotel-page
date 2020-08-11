@@ -4,7 +4,7 @@ import Card from './components/Card/Card'
 import useHotelAPI from './hooks/useHotelAPI'
 
 const App = () => {
-  const [currency, setCurrency] = useState('SGD')
+  const [currency, setCurrency] = useState('USD')
   const [hoteldata, fetchHoteldata] = useHotelAPI(currency)
 
   const handleCurrencyChange = (e) => {
@@ -13,7 +13,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    setCurrency(window.localStorage.getItem('hotelPageCurrency') ? window.localStorage.getItem('hotelPageCurrency') : 'SGD')
+    setCurrency(window.localStorage.getItem('hotelPageCurrency') ? window.localStorage.getItem('hotelPageCurrency') : 'USD')
     fetchHoteldata(currency)
   }, [currency, fetchHoteldata])
 

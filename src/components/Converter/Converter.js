@@ -23,8 +23,8 @@ const Converter = (props) => {
     <ConverterContainer>
       <p>Currency</p>
       <select name="currency" id="currency" form="currencyForm" onChange={handleCurrencyChange} value={currency}>
-        <option value="SGD">SGD</option>
         <option value="USD">USD</option>
+        <option value="SGD">SGD</option>
         <option value="CNY">CNY</option>
         <option value="KRW">KRW</option>
       </select>
