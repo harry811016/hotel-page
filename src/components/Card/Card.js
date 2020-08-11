@@ -123,7 +123,7 @@ const CardItem = styled.div`
       line-height: 35px;
       font-weight: 600;
       text-align: center;
-      margin-top: 0.5rem;
+      margin-top: 0.6rem;
       box-shadow: 0 0 2px 0 rgba(19,26,31,0.12),0 2px 4px 0 rgba(19,26,31,0.22);
     }
 
@@ -142,6 +142,26 @@ const CardItem = styled.div`
       font-weight: 800;
       line-height: 15px;
       padding: 5px 0;
+    }
+
+    &__tax {
+      display: flex;
+      flex-flow: column;
+      justify-content: flex-start;
+      height: 15px;
+      font-size: 0.8rem;
+      line-height: 10px;
+      margin: 1rem 0;
+
+      p {
+        margin-top: -5px;  
+      }
+
+      p.fees {
+        color: #008009;
+        font-weight: 800;
+        margin-top: -0.5rem;  
+      }
     }
 
   }
@@ -207,10 +227,15 @@ const Card = (props) => {
                     Unavaiable
                   </div>)}
 
+              {item.price && item.price.taxes_and_fees ? (<div className="deal__tax">
+                <p>Price includes:</p>
+                <p className='fees'>{item.price.taxes_and_fees.tax ? `taxes: $${item.price.taxes_and_fees.tax}` : ''}</p>
+                <p className='fees'>{item.price.taxes_and_fees.hotel_fees ? `hotel fees: $${item.price.taxes_and_fees.hotel_fees}` : ''}</p>
+              </div>) : ''}
 
               {item.price && item.price.savedCost > 0 ? (
                 <div className="deal__savedCost">
-                  Saved up to {Math.round(item.price.savedCost).toLocaleString()} !
+                  Saved up to ${Math.round(item.price.savedCost).toLocaleString()} !
                 </div>) : ''}
 
               <div className="deal__price">
