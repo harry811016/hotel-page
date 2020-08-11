@@ -79,12 +79,13 @@ const CardItem = styled.div`
       &__item {
         height: 45px;
         padding: 0 1rem;
-        font-size: 0.8rem;
-        line-height: 0.8rem;
+        font-size: 0.7rem;
+        line-height: 0.7rem;
         display: flex;
         flex-flow: column;
         justify-content: center;
         align-items: center;
+        white-space: nowrap;
 
         .name {
           font-weight: 800;
@@ -94,12 +95,8 @@ const CardItem = styled.div`
 
       &__item.highlight {
         border-radius: 5px;
-        color: #ffffff;
-        background-color: rgba(255, 105, 15, 1);
-
-        .name {
-          white-space: nowrap;
-        }
+        color: #008009;
+        background-color: rgba(0,128,9,0.05);
         }
     }
   }
@@ -177,16 +174,16 @@ const Card = (props) => {
               </div>
               <div className="info__rating">{item.rating}</div>
               <div className="info__competitors">
-                {item.price && item.price.competitionSet.length > 1 ? (item.price.competitionSet.map(item => {
+                {item.price && item.price.competitionSet.length > 1 && item.price.savedCost > 0 ? (item.price.competitionSet.map(item => {
                   if (item.name === 'Our Price') {
                     return (<div className="info__competitors__item highlight">
                       <p className='name'>{item.name}</p>
-                      <p className='price'>{item.price}</p>
+                      <p className='price'>{Math.round(item.price).toLocaleString()}</p>
                     </div>)
                   } else {
                     return (<div className="info__competitors__item">
                       <p className='name'>{item.name}</p>
-                      <p className='price'>{item.price}</p>
+                      <p className='price'>{Math.round(item.price).toLocaleString()}</p>
                     </div>)
                   }
                 })) : ''}
@@ -196,10 +193,12 @@ const Card = (props) => {
               <div className="deal__button">
                 {item.price ? 'Book now!' : 'unavaiable'}
               </div>
-              <div className="deal__savedCost">
-                {item.price && item.price.savedCost > 0 ? 'Saved ' + Math.round(item.price.savedCost).toLocaleString() + ' !'
-                  : ''}
-              </div>
+
+              {item.price && item.price.savedCost > 0 ? (
+                <div className="deal__savedCost">
+                  Saved up to {Math.round(item.price.savedCost).toLocaleString()} !
+                </div>) : ''}
+
               <div className="deal__price">
                 {item.price ? priceConverter(props.currency, item.price.price) : ''}
               </div>
