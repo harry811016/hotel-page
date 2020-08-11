@@ -112,6 +112,21 @@ const CardItem = styled.div`
     &__price {
       font-weight: 750;
       font-size: 1.25rem;
+
+      &__tax {
+        display: flex;
+        flex-flow: column;
+        justify-content: flex-start;
+        height: 15px;
+        font-weight: 400;
+        font-size: 0.8rem;
+        line-height:  0.8rem;
+        margin: -0.5rem 0 1rem;
+
+        p {
+          border-bottom: 1px dotted #000000;
+        }
+      }
     }
 
     &__button {
@@ -136,34 +151,58 @@ const CardItem = styled.div`
     }
 
     &__savedCost {
-      height: 15px;
       color: #bf323b;
       font-size: 0.8rem;
-      font-weight: 800;
-      line-height: 15px;
-      padding: 5px 0;
-    }
+      line-height: 0.8rem;
+      margin: 0.5rem 0;
 
-    &__tax {
+      &--highlight {
+        font-weight: 800;
+      }
+
+      &--strikethrough {
+        font-style: italic;
+        text-decoration: line-through;
+        font-weight: 400;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .tooltip {
+    .tooltiptext {
+      visibility: hidden;
       display: flex;
       flex-flow: column;
       justify-content: flex-start;
-      height: 15px;
+      align-items: flex-start;
+      width: 120px;
+      /* color: #008009; */
+      background-color: rgba(0,128,9,0.25);
+      text-align: center;
+      border-radius: 6px;
+      padding: 0.5rem;
       font-size: 0.8rem;
-      line-height: 10px;
-      margin: 1rem 0;
+      
+      position: absolute;
+      transform: translate(-110%, -100%);
+      z-index: 1;
 
       p {
-        margin-top: -5px;  
-      }
-
-      p.fees {
-        color: #008009;
-        font-weight: 800;
-        margin-top: -0.5rem;  
+        line-height: 0px;
+        font-weight: 600;
       }
     }
+  }
 
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
   }
 `
 
@@ -227,20 +266,27 @@ const Card = (props) => {
                     Unavaiable
                   </div>)}
 
-              {item.price && item.price.taxes_and_fees ? (<div className="deal__tax">
-                <p>Price includes:</p>
-                <p className='fees'>{item.price.taxes_and_fees.tax ? `taxes: $${item.price.taxes_and_fees.tax}` : ''}</p>
-                <p className='fees'>{item.price.taxes_and_fees.hotel_fees ? `hotel fees: $${item.price.taxes_and_fees.hotel_fees}` : ''}</p>
-              </div>) : ''}
+              <div className="deal__price">
+                <div class="tooltip">
+                  {item.price ? priceConverter(props.currency, item.price.price) : ''}
+
+                  {item.price && item.price.taxes_and_fees ? (<div className="deal__price__tax">
+                    <p>*tax-inclusive</p>
+                  </div>) : ''}
+                  {item.price && item.price.taxes_and_fees ? (
+                    <span class="tooltiptext">
+                      <p className='fees'>{item.price.taxes_and_fees.tax ? `tax: $${item.price.taxes_and_fees.tax}` : ''}</p>
+                      <p className='fees'>{item.price.taxes_and_fees.hotel_fees ? `hotel fees: $${item.price.taxes_and_fees.hotel_fees}` : ''}</p>
+                    </span>) : ''}
+                </div>
+              </div>
 
               {item.price && item.price.savedCost > 0 ? (
                 <div className="deal__savedCost">
-                  Saved up to ${Math.round(item.price.savedCost).toLocaleString()} !
+                  <span className="deal__savedCost--strikethrough">${Math.round(item.price.savedCost + item.price.price).toLocaleString()}</span>
+                  <span className="deal__savedCost--highlight">Save {(100 * item.price.savedCost / item.price.price).toFixed(1)}% !</span>
                 </div>) : ''}
 
-              <div className="deal__price">
-                {item.price ? priceConverter(props.currency, item.price.price) : ''}
-              </div>
             </div>
           </CardItem>
         )
