@@ -32,7 +32,7 @@ const CardItem = styled.div`
   .info {
     padding: 1rem 2rem;
     width: 300px;
-    height: 180px;
+    /* height: 180px; */
     display: flex;
     flex-flow: column;
     justify-content: space-between;
@@ -66,28 +66,51 @@ const CardItem = styled.div`
       border-radius: 8px;
     }
 
-    &:before{
-      content: '';
-      position: absolute;
-      width: 95%;
-      height: 100%;
-      border-right: 1px solid rgba(200, 200, 200, 0.5);
-      margin: auto 0;
-    }
+    &__competitors{
+      width: 100%;
+      align-items: flex-end;
+      display: flex;
+      justify-content: flex-start;
+      overflow-y: hidden;
+      overflow-x: auto;
+      border-top: 1px solid rgba(200, 200, 200, 0.5);
+      padding-top: 10px;
 
-    &:after{
-      content: '';
-      width: 95%;
-      height: 0px;
-      border-bottom: 1px solid rgba(200, 200, 200, 0.5);
-      margin: 0 auto;
+      &__item {
+        height: 45px;
+        padding: 0 1rem;
+        font-size: 0.8rem;
+        line-height: 0.8rem;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+
+        .name {
+          font-weight: 800;
+          margin-bottom: -0.5rem;
+        }
+      }
+
+      &__item.highlight {
+        border-radius: 5px;
+        color: #ffffff;
+        background-color: rgba(255, 105, 15, 1);
+
+        .name {
+          white-space: nowrap;
+        }
+        }
     }
   }
 
   .deal{
     display: flex;
     flex-flow: column-reverse;
-    margin: 0 auto 1.5rem auto;
+    margin: 1rem auto;
+    position: relative;
+    border-left: 1px solid rgba(200, 200, 200, 0.5);
+    padding-left: 1rem;
 
     &__price {
       font-weight: 750;
@@ -103,7 +126,17 @@ const CardItem = styled.div`
       line-height: 35px;
       font-weight: 600;
       text-align: center;
-      margin-top: 0.5rem
+      margin-top: 0.5rem;
+      box-shadow: 0 0 2px 0 rgba(19,26,31,0.12),0 2px 4px 0 rgba(19,26,31,0.22);
+    }
+
+    &__savedCost {
+      height: 15px;
+      color: #bf323b;
+      font-size: 0.8rem;
+      font-weight: 800;
+      line-height: 15px;
+      padding: 5px 0;
     }
 
   }
@@ -143,11 +176,32 @@ const Card = (props) => {
                 <div className="info__main__stars">{starConverter(item.stars)}</div>
               </div>
               <div className="info__rating">{item.rating}</div>
+              <div className="info__competitors">
+                {item.price && item.price.competitionSet.length > 1 ? (item.price.competitionSet.map(item => {
+                  if (item.name === 'Our Price') {
+                    return (<div className="info__competitors__item highlight">
+                      <p className='name'>{item.name}</p>
+                      <p className='price'>{item.price}</p>
+                    </div>)
+                  } else {
+                    return (<div className="info__competitors__item">
+                      <p className='name'>{item.name}</p>
+                      <p className='price'>{item.price}</p>
+                    </div>)
+                  }
+                })) : ''}
+              </div>
             </div>
             <div className="deal">
-              <div className="deal__button">Book now!</div>
+              <div className="deal__button">
+                {item.price ? 'Book now!' : 'unavaiable'}
+              </div>
+              <div className="deal__savedCost">
+                {item.price && item.price.savedCost > 0 ? 'Saved ' + Math.round(item.price.savedCost).toLocaleString() + ' !'
+                  : ''}
+              </div>
               <div className="deal__price">
-                {item.price ? priceConverter(props.currency, item.price.price) : 'unavaiable'}
+                {item.price ? priceConverter(props.currency, item.price.price) : ''}
               </div>
             </div>
           </CardItem>

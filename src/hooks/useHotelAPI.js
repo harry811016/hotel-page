@@ -29,6 +29,23 @@ const useHotelAPI = (currency) => {
     // transform array data to object data
     const priceData = {}
     originalPriceData.forEach(i => {
+      let competitorArray = [{ name: 'Our Price', price: i.price }]
+      if (i.competitors) {
+        for (const prop in i.competitors) {
+          let obj = { name: prop, price: i.competitors[prop] }
+          competitorArray.push(obj)
+        }
+      }
+
+      // sort by price
+      competitorArray.sort((a, b) => {
+        return a.price - b.price
+      })
+      i.competitionSet = competitorArray
+
+      // calculate saved price
+      const savedCost = competitorArray[competitorArray.length - 1].price - i.price
+      i.savedCost = savedCost
       priceData[i.id] = i
     })
 
@@ -38,7 +55,25 @@ const useHotelAPI = (currency) => {
       return item
     })
 
-    setHoteldata(infoData)
+    // seperate data based on availability
+    let unavailableData = []
+    let availableData = []
+
+    infoData.forEach(item => {
+      if (item.price) {
+        availableData.push(item)
+      } else {
+        unavailableData.push(item)
+      }
+    })
+
+    // sort by saved cost
+    availableData.sort((a, b) => {
+      return b.price.savedCost - a.price.savedCost
+    })
+
+    availableData = availableData.concat(unavailableData)
+    setHoteldata(availableData)
   })
 
   useEffect(() => {
