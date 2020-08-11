@@ -116,7 +116,7 @@ const CardItem = styled.div`
 
     &__button {
       color: #ffffff;
-      background-color: #ff690f;
+      background-color: #333333;
       border-radius: 2px;
       width: 120px;
       height: 35px;
@@ -125,6 +125,14 @@ const CardItem = styled.div`
       text-align: center;
       margin-top: 0.5rem;
       box-shadow: 0 0 2px 0 rgba(19,26,31,0.12),0 2px 4px 0 rgba(19,26,31,0.22);
+    }
+
+    &__button.cursor{
+      cursor: pointer;
+      background-color: #ff690f;
+      &:hover {
+        transform: scale(1.05);
+      }
     }
 
     &__savedCost {
@@ -190,9 +198,15 @@ const Card = (props) => {
               </div>
             </div>
             <div className="deal">
-              <div className="deal__button">
-                {item.price ? 'Book now!' : 'unavaiable'}
-              </div>
+
+              {item.price ? (
+                <div className="deal__button cursor">
+                  Book now!
+                </div>) : (
+                  <div className="deal__button">
+                    Unavaiable
+                  </div>)}
+
 
               {item.price && item.price.savedCost > 0 ? (
                 <div className="deal__savedCost">
