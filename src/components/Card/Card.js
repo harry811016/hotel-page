@@ -263,7 +263,7 @@ const Card = (props) => {
                   Book now!
                 </div>) : (
                   <div className="deal__button">
-                    Unavaiable
+                    Unavailable
                   </div>)}
 
               <div className="deal__price">
