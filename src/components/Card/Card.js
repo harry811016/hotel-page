@@ -69,7 +69,7 @@ const CardItem = styled.div`
     &:before{
       content: '';
       position: absolute;
-      width: 100%;
+      width: 95%;
       height: 100%;
       border-right: 1px solid rgba(200, 200, 200, 0.5);
       margin: auto 0;
@@ -83,21 +83,34 @@ const CardItem = styled.div`
       margin: 0 auto;
     }
   }
+
+  .deal{
+    display: flex;
+    flex-flow: column-reverse;
+    margin: 0 auto 1.5rem auto;
+
+    &__price {
+      font-weight: 750;
+      font-size: 1.25rem;
+    }
+
+    &__button {
+      color: #ffffff;
+      background-color: #ff690f;
+      border-radius: 2px;
+      width: 120px;
+      height: 35px;
+      line-height: 35px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 0.5rem
+    }
+
+  }
 `
 
-
-
-
 const Card = (props) => {
-  const [hoteldata, setHoteldata] = useState([])
-  useEffect(() => {
-    fetch('https://5df9cc6ce9f79e0014b6b3dc.mockapi.io/hotels/tokyo').then(res => res.json()
-    ).then(data => {
-      console.log(data)
-      setHoteldata(data)
-    })
-  }, [])
-
+  const hoteldata = props.hoteldata
   const starConverter = (stars) => {
     stars = Math.round(stars)
     let str = ''
@@ -107,11 +120,21 @@ const Card = (props) => {
     return str
   }
 
+  const priceConverter = (currency, price) => {
+    price = Math.round(price)
+
+    if (['KRW', 'JPY', 'IDR'].includes(currency,)) {
+      price = price.toLocaleString()
+    }
+
+    return `${currency} ${price}`
+  }
+
   return (
     <CardContainer>
       {hoteldata.map(item => {
         return (
-          <CardItem >
+          <CardItem key={item.id}>
             <div className="img"><img src={item.photo} alt="" /></div>
             <div className="info">
               <div className="info__main">
@@ -121,7 +144,11 @@ const Card = (props) => {
               </div>
               <div className="info__rating">{item.rating}</div>
             </div>
-            <div className="price">
+            <div className="deal">
+              <div className="deal__button">Book now!</div>
+              <div className="deal__price">
+                {item.price ? priceConverter(props.currency, item.price.price) : 'unavaiable'}
+              </div>
             </div>
           </CardItem>
         )

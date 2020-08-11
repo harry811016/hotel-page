@@ -1,0 +1,51 @@
+import { useCallback, useEffect, useState } from 'react'
+
+
+const fetchHotel = () => {
+  return fetch('https://5df9cc6ce9f79e0014b6b3dc.mockapi.io/hotels/tokyo')
+    .then(res => res.json())
+    .then(data => {
+      return data
+    })
+}
+
+const fetchPrice = (currency) => {
+  return fetch(`https://5df9cc6ce9f79e0014b6b3dc.mockapi.io/hotels/tokyo/1/${currency}`)
+    .then(res => res.json())
+    .then(data => {
+      return data
+    })
+}
+
+const useHotelAPI = (currency) => {
+  const [hoteldata, setHoteldata] = useState([])
+
+  const fetchHoteldata = useCallback(async () => {
+    const [infoData, originalPriceData] = await Promise.all([
+      fetchHotel(),
+      fetchPrice(currency)
+    ])
+
+    // transform array data to object data
+    const priceData = {}
+    originalPriceData.forEach(i => {
+      priceData[i.id] = i
+    })
+
+    // combine info data with price data
+    infoData.map(item => {
+      item.price = priceData[item.id]
+      return item
+    })
+
+    setHoteldata(infoData)
+  })
+
+  useEffect(() => {
+    fetchHoteldata()
+  }, [])
+
+  return [hoteldata, fetchHoteldata]
+}
+
+export default useHotelAPI

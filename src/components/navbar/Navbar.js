@@ -18,7 +18,7 @@ const Navbar = (props) => {
   return (
     <NavbarContainer>
       <h1>Hotel Page</h1>
-      <Converter handleCurrencyChange={handleCurrencyChange} />
+      <Converter handleCurrencyChange={handleCurrencyChange} currency={props.currency} />
     </NavbarContainer>
   )
 }

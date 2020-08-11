@@ -18,11 +18,11 @@ const ConverterContainer = styled.div`
 `
 
 const Converter = (props) => {
-  const { handleCurrencyChange } = props
+  const { handleCurrencyChange, currency } = props
   return (
     <ConverterContainer>
       <p>Currency</p>
-      <select name="currency" id="currency" form="currencyForm" onChange={handleCurrencyChange}>
+      <select name="currency" id="currency" form="currencyForm" onChange={handleCurrencyChange} value={currency}>
         <option value="SGD">SGD</option>
         <option value="USD">USD</option>
         <option value="CNY">CNY</option>
