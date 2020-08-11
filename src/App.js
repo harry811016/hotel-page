@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
-import Navbar from './components/navbar/Navbar'
+import Navbar from './components/Navbar/Navbar'
+import Card from './components/Card/Card'
 
 const App = () => {
   const [currency, setCurrency] = useState('SGD')
@@ -11,8 +12,7 @@ const App = () => {
   return (
     <Fragment>
       <Navbar handleCurrencyChange={handleCurrencyChange} />
-      <div className="App">
-      </div>
+      <Card currency={currency} />
     </Fragment>
   )
 }

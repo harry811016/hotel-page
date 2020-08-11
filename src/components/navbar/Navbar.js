@@ -11,7 +11,7 @@ const NavbarContainer = styled.div`
   padding: 0 1rem;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const Navbar = (props) => {
   const { handleCurrencyChange } = props
