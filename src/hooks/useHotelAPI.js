@@ -74,11 +74,11 @@ const useHotelAPI = (currency) => {
 
     availableData = availableData.concat(unavailableData)
     setHoteldata(availableData)
-  })
+  }, [currency])
 
   useEffect(() => {
     fetchHoteldata()
-  }, [])
+  }, [fetchHoteldata])
 
   return [hoteldata, fetchHoteldata]
 }

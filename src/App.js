@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     setCurrency(window.localStorage.getItem('hotelPageCurrency') ? window.localStorage.getItem('hotelPageCurrency') : 'SGD')
     fetchHoteldata(currency)
-  }, [currency])
+  }, [currency, fetchHoteldata])
 
   return (
     <Fragment>
