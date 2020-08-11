@@ -8,7 +8,7 @@ const NavbarContainer = styled.div`
   background-color: #ff690f;
   display: flex;
   font-size: 1rem;
-  padding: 0 1rem;
+  padding: 0 2rem;
   justify-content: space-between;
   align-items: center;
 `;
@@ -17,7 +17,7 @@ const Navbar = (props) => {
   const { handleCurrencyChange } = props
   return (
     <NavbarContainer>
-      <h1>Hotel Page</h1>
+      <h1>Your Hotel.com</h1>
       <Converter handleCurrencyChange={handleCurrencyChange} currency={props.currency} />
     </NavbarContainer>
   )
