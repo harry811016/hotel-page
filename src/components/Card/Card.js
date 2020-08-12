@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { rgba } from 'emotion-rgba'
 
 const CardContainer = styled.div`
   padding: 7rem 0 5rem;
@@ -37,7 +38,7 @@ const CardItem = styled.div`
     left: 0;
     position: absolute;
     padding: 0.75rem;
-    background-color: rgba(255,255,255);
+    background-color: ${props => props.theme.colors.white};
     z-index: 200;
     overflow-y: auto;
 
@@ -53,7 +54,7 @@ const CardItem = styled.div`
       height: 1.5rem;
       line-height: 1.5rem;
       font-size: 0.8rem;
-      color: #003580;
+      color: ${props => props.theme.colors.dark_blue};
       border-radius: 8px;
       margin: 0 auto;
       padding-left: 0.25rem;
@@ -66,7 +67,6 @@ const CardItem = styled.div`
   .info {
     padding: 1rem 2rem;
     width: 400px;
-    /* height: 180px; */
     display: flex;
     flex-flow: column;
     justify-content: space-between;
@@ -85,7 +85,7 @@ const CardItem = styled.div`
       }
 
       &__stars {
-        color: rgb(254, 186, 2);
+        color:  ${props => props.theme.colors.dark_yellow};
       }
     }
 
@@ -103,7 +103,7 @@ const CardItem = styled.div`
         line-height: 30px;
         font-weight: 600;
         text-align: center;
-        background-color: #003580;
+        background-color: ${props => props.theme.colors.dark_blue};
         border-radius: 8px;
       }
 
@@ -111,7 +111,7 @@ const CardItem = styled.div`
         display: flex;
         align-items: flex-end;
         height: 100%;
-        color: #003580;
+        color:  ${props => props.theme.colors.dark_blue};
         font-size: 0.8rem;
         font-style: italic;
         cursor: pointer;
@@ -125,7 +125,7 @@ const CardItem = styled.div`
       justify-content: flex-start;
       overflow-y: hidden;
       overflow-x: auto;
-      border-top: 1px solid rgba(200, 200, 200, 0.5);
+      border-top: 1px solid ${props => props.theme.colors.bg_grey};
       padding-top: 10px;
 
       &__item {
@@ -147,8 +147,8 @@ const CardItem = styled.div`
 
       &__item.highlight {
         border-radius: 5px;
-        color: #008009;
-        background-color: rgba(0,128,9,0.05);
+        color: ${props => props.theme.colors.dark_green};
+        background-color: ${props => props.theme.colors.bg_green};
         }
     }
   }
@@ -158,7 +158,7 @@ const CardItem = styled.div`
     flex-flow: column-reverse;
     margin: 1rem auto;
     position: relative;
-    border-left: 1px solid rgba(200, 200, 200, 0.5);
+    border-left: 1px solid ${props => props.theme.colors.bg_grey};
     padding-left: 1rem;
 
     &__price {
@@ -176,14 +176,14 @@ const CardItem = styled.div`
         margin: -0.5rem 0 1rem;
 
         p {
-          border-bottom: 1px dotted #000000;
+          border-bottom: 1px dotted ${props => props.theme.colors.black};
         }
       }
     }
 
     &__button {
-      color: #ffffff;
-      background-color: #333333;
+      color:  ${props => props.theme.colors.white};
+      background-color:  ${props => props.theme.colors.dark_grey};
       border-radius: 2px;
       width: 120px;
       height: 35px;
@@ -196,14 +196,14 @@ const CardItem = styled.div`
 
     &__button.cursor{
       cursor: pointer;
-      background-color: #ff690f;
+      background-color: ${props => props.theme.colors.main_color};
       &:hover {
         transform: scale(1.05);
       }
     }
 
     &__savedCost {
-      color: #bf323b;
+      color: ${props => props.theme.colors.dark_red};
       font-size: 0.8rem;
       line-height: 0.8rem;
       margin: 0.5rem 0;
@@ -235,8 +235,8 @@ const CardItem = styled.div`
       justify-content: flex-start;
       align-items: flex-start;
       width: 150px;
-      background-color: rgba(255,255,255,1);
-      border: 1px solid rgb(254, 186, 2);
+      background-color: ${props => props.theme.colors.white};
+      border: 1px solid ${props => props.theme.colors.dark_yellow};
       border-radius: 5px;
       text-align: center;
       border-radius: 6px;

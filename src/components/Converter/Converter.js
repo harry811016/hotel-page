@@ -11,9 +11,9 @@ const ConverterContainer = styled.div`
   }
   select {
     border-radius: 5px;
-    border: 1px solid #ffffff;
+    border: 1px solid ${props => props.theme.colors.white};
     padding: 0.25rem 0.5rem;
-    color: #ffffff;
+    color: ${props => props.theme.colors.white};
     background-color: rgba(255,105,15,0.5)
   }
 `
