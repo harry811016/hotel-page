@@ -232,14 +232,17 @@ const Card = (props) => {
       {hoteldata.map(item => {
         return (
           <CardItem key={item.id}>
+            {/* Left part - pciture */}
             <div className="img"><img src={item.photo} alt="" /></div>
+
+            {/* Middle part - hotel and competitor info */}
             <div className="info">
               <div className="info__main">
                 <div className="info__main__name">{item.name}</div>
                 <div className="info__main__address">{item.address}</div>
-                <div className="info__main__stars">{starConverter(item.stars)}</div>
+                {item.stars || item.stars === 0 ? (<div className="info__main__stars">{starConverter(item.stars)}</div>) : ''}
               </div>
-              <div className="info__rating">{item.rating}</div>
+              {item.rating || item.rating === 0 ? (<div className="info__rating">{item.rating}</div>) : ''}
               <div className="info__competitors">
                 {item.price && item.price.competitionSet.length > 1 && item.price.savedCost > 0 ? (item.price.competitionSet.map(item => {
                   if (item.name === 'Our Price') {
@@ -256,8 +259,9 @@ const Card = (props) => {
                 })) : ''}
               </div>
             </div>
-            <div className="deal">
 
+            {/* Right part - price and CTA button */}
+            <div className="deal">
               {item.price ? (
                 <div className="deal__button cursor">
                   Book now!
