@@ -4,8 +4,8 @@ import styled from '@emotion/styled'
 const ConverterContainer = styled.div`
   display: flex;
   align-items: center;
-  padding-right: 4rem;
   height: 1rem;
+  
   p {
     margin-right: 10px;
   }

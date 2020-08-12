@@ -17,6 +17,7 @@ const CardItem = styled.div`
   box-shadow: 0 0 2px 0 rgba(19,26,31,0.12),0 2px 4px 0 rgba(19,26,31,0.22);
   margin-bottom: 2rem;
   display: flex;
+  position: relative;
 
   .img{
     img{
@@ -29,9 +30,42 @@ const CardItem = styled.div`
     }
   }
 
+  .description {
+    height: 250px;
+    width: calc(106%);
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding: 0.75rem;
+    background-color: rgba(255,255,255);
+    z-index: 200;
+    overflow-y: auto;
+
+    &__text {
+      flex: 0 0 95%;
+      font-size: 0.75rem;
+      padding-right: 0.25rem;
+      font-weight: 400;
+    }
+
+    &__button {
+      flex: 0 0 5%;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      font-size: 0.8rem;
+      color: #003580;
+      border-radius: 8px;
+      margin: 0 auto;
+      padding-left: 0.25rem;
+      font-weight: 1000px;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+
   .info {
     padding: 1rem 2rem;
-    width: 300px;
+    width: 400px;
     /* height: 180px; */
     display: flex;
     flex-flow: column;
@@ -55,15 +89,33 @@ const CardItem = styled.div`
       }
     }
 
-    &__rating {
-      color: #ffffff;
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      font-weight: 600;
-      text-align: center;
-      background-color: #003580;
-      border-radius: 8px;
+    &__bottomWrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      margin-bottom: 0.5rem;
+
+      &__rating {
+        color: #ffffff;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-weight: 600;
+        text-align: center;
+        background-color: #003580;
+        border-radius: 8px;
+      }
+
+      &__more {
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+        color: #003580;
+        font-size: 0.8rem;
+        font-style: italic;
+        cursor: pointer;
+      }
     }
 
     &__competitors{
@@ -208,6 +260,7 @@ const CardItem = styled.div`
 
 const Card = (props) => {
   const hoteldata = props.hoteldata
+  console.log(hoteldata)
   const starConverter = (stars) => {
     stars = Math.round(stars)
     let str = ''
@@ -227,6 +280,26 @@ const Card = (props) => {
     return `${currency} ${price}`
   }
 
+  const showDescription = (e) => {
+    const id = Number(e.target.id)
+    const modal = e.target.nextSibling
+    const [text, closeBtn] = e.target.nextSibling.children
+
+    // insert HTML content
+    let data = hoteldata.filter(item => item.id === id)
+    data = data[0].description.replace(/<br>/g, '')
+    text.innerHTML = data
+
+    // open modal
+    modal.classList.remove('d-none')
+
+    // close modal
+    closeBtn.addEventListener('click', () => {
+      modal.scrollTop = 0
+      modal.classList.add('d-none')
+    })
+  }
+
   return (
     <CardContainer>
       {hoteldata.map(item => {
@@ -242,7 +315,17 @@ const Card = (props) => {
                 <div className="info__main__address">{item.address}</div>
                 {item.stars || item.stars === 0 ? (<div className="info__main__stars">{starConverter(item.stars)}</div>) : ''}
               </div>
-              {item.rating || item.rating === 0 ? (<div className="info__rating">{item.rating}</div>) : ''}
+              <div className="info__bottomWrapper">
+                {item.rating || item.rating === 0 ? (<div className="info__bottomWrapper__rating">{item.rating}</div>) : ''}
+                <div className="info__bottomWrapper__more" onClick={showDescription} id={item.id}>see more</div>
+
+                {/* description */}
+                <div className="description d-none" >
+                  <div className="description__text">
+                  </div>
+                  <div className="description__button">back</div>
+                </div>
+              </div>
               <div className="info__competitors">
                 {item.price && item.price.competitionSet.length > 1 && item.price.savedCost > 0 ? (item.price.competitionSet.map(item => {
                   if (item.name === 'Our Price') {
@@ -271,14 +354,14 @@ const Card = (props) => {
                   </div>)}
 
               <div className="deal__price">
-                <div class="tooltip">
+                <div className="tooltip">
                   {item.price ? priceConverter(props.currency, item.price.price) : ''}
 
                   {item.price && item.price.taxes_and_fees ? (<div className="deal__price__tax">
                     <p>*tax-inclusive</p>
                   </div>) : ''}
                   {item.price && item.price.taxes_and_fees ? (
-                    <span class="tooltiptext">
+                    <span className="tooltiptext">
                       <p className='fees'>{item.price.taxes_and_fees.tax ? `tax: $${item.price.taxes_and_fees.tax}` : ''}</p>
                       <p className='fees'>{item.price.taxes_and_fees.hotel_fees ? `hotel fees: $${item.price.taxes_and_fees.hotel_fees}` : ''}</p>
                     </span>) : ''}
