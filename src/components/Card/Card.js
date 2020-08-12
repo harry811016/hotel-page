@@ -331,12 +331,12 @@ const Card = (props) => {
               <div className="info__competitors">
                 {item.price && item.price.competitionSet.length > 1 && item.price.savedCost > 0 ? (item.price.competitionSet.map(item => {
                   if (item.name === 'Our Price') {
-                    return (<div className="info__competitors__item highlight">
+                    return (<div className="info__competitors__item highlight" key={item.name}>
                       <p className='name'>{item.name}</p>
                       <p className='price'>{Math.round(item.price).toLocaleString()}</p>
                     </div>)
                   } else {
-                    return (<div className="info__competitors__item">
+                    return (<div className="info__competitors__item" key={item.name}>
                       <p className='name'>{item.name}</p>
                       <p className='price'>{Math.round(item.price).toLocaleString()}</p>
                     </div>)
