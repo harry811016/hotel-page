@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should take a snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-t9jjiw"
+  >
+    <div
+      class="css-w4szxx"
+    >
+      <div
+        class="img"
+      >
+        <img
+          alt=""
+          src="https://d2ey9sqrvkqdfs.cloudfront.net/ZqSQ/i1_t.jpg"
+        />
+      </div>
+      <div
+        class="info"
+      >
+        <div
+          class="info__main"
+        >
+          <div
+            class="info__main__name"
+            data-testid="name"
+          >
+            hotel name
+          </div>
+          <div
+            class="info__main__address"
+            data-testid="address"
+          >
+            hotel address
+          </div>
+          <div
+            class="info__main__stars"
+            data-testid="stars"
+          >
+            ★★★★
+          </div>
+        </div>
+        <div
+          class="info__bottomWrapper"
+        >
+          <div
+            class="info__bottomWrapper__rating"
+            data-testid="rating"
+          >
+            7.7
+          </div>
+          <div
+            class="info__bottomWrapper__more"
+            data-testid="more"
+            id="1"
+          >
+            see more
+          </div>
+          <div
+            class="description d-none"
+          >
+            <div
+              class="description__text"
+              data-testid="description"
+            />
+            <div
+              class="description__button"
+              data-testid="description-btn"
+            >
+              back
+            </div>
+          </div>
+        </div>
+        <div
+          class="info__competitors"
+        >
+          <div
+            class="info__competitors__item highlight"
+          >
+            <p
+              class="name"
+            >
+              Our Price
+            </p>
+            <p
+              class="price"
+            >
+              100
+            </p>
+          </div>
+          <div
+            class="info__competitors__item"
+          >
+            <p
+              class="name"
+            >
+              Booking.com
+            </p>
+            <p
+              class="price"
+            >
+              105
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="deal"
+        data-testid="deal"
+      >
+        <div
+          class="deal__button cursor"
+          data-testid="cta-btn"
+        >
+          Book now!
+        </div>
+        <div
+          class="deal__price"
+        >
+          <div
+            class="tooltip"
+          >
+            <span
+              data-testid="price"
+            >
+              SGD 100
+            </span>
+            <div
+              class="deal__price__tax"
+              data-testid="tax-included-msg"
+            >
+              <p>
+                *tax-inclusive
+              </p>
+            </div>
+            <span
+              class="tooltiptext"
+            >
+              <p
+                class="fees"
+                data-testid="tax"
+              >
+                tax: $13.12
+              </p>
+              <p
+                class="fees"
+                data-testid="hotel-fee"
+              >
+                hotel fees: $16.4
+              </p>
+            </span>
+          </div>
+        </div>
+        <div
+          class="deal__savedCost"
+        >
+          <span
+            class="deal__savedCost--strikethrough"
+            data-testid="expensive-price"
+          >
+            $105
+          </span>
+          <span
+            class="deal__savedCost--highlight"
+            data-testid="saved-percentage"
+          >
+            Save 5.0% !
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

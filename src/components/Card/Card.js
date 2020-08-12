@@ -260,7 +260,6 @@ const CardItem = styled.div`
 
 const Card = (props) => {
   const hoteldata = props.hoteldata
-  console.log(hoteldata)
   const starConverter = (stars) => {
     stars = Math.round(stars)
     let str = ''
@@ -296,6 +295,7 @@ const Card = (props) => {
     // close modal
     closeBtn.addEventListener('click', () => {
       modal.scrollTop = 0
+      text.innerHTML = ''
       modal.classList.add('d-none')
     })
   }
@@ -311,21 +311,23 @@ const Card = (props) => {
             {/* Middle part - hotel and competitor info */}
             <div className="info">
               <div className="info__main">
-                <div className="info__main__name">{item.name}</div>
-                <div className="info__main__address">{item.address}</div>
-                {item.stars || item.stars === 0 ? (<div className="info__main__stars">{starConverter(item.stars)}</div>) : ''}
+                <div className="info__main__name" data-testid="name">{item.name}</div>
+                <div className="info__main__address" data-testid="address">{item.address}</div>
+                {item.stars || item.stars === 0 ? (<div className="info__main__stars" data-testid="stars">{starConverter(item.stars)}</div>) : ''}
               </div>
               <div className="info__bottomWrapper">
-                {item.rating || item.rating === 0 ? (<div className="info__bottomWrapper__rating">{item.rating}</div>) : ''}
-                <div className="info__bottomWrapper__more" onClick={showDescription} id={item.id}>see more</div>
+                {item.rating || item.rating === 0 ? (<div className="info__bottomWrapper__rating" data-testid="rating">{item.rating}</div>) : ''}
+                <div className="info__bottomWrapper__more" onClick={showDescription} id={item.id} data-testid="more">see more</div>
 
                 {/* description */}
                 <div className="description d-none" >
-                  <div className="description__text">
+                  <div className="description__text" data-testid="description">
                   </div>
-                  <div className="description__button">back</div>
+                  <div className="description__button" data-testid="description-btn">back</div>
                 </div>
               </div>
+
+              {/* competitors */}
               <div className="info__competitors">
                 {item.price && item.price.competitionSet.length > 1 && item.price.savedCost > 0 ? (item.price.competitionSet.map(item => {
                   if (item.name === 'Our Price') {
@@ -344,9 +346,9 @@ const Card = (props) => {
             </div>
 
             {/* Right part - price and CTA button */}
-            <div className="deal">
+            <div className="deal" data-testid="deal">
               {item.price ? (
-                <div className="deal__button cursor">
+                <div className="deal__button cursor" data-testid="cta-btn">
                   Book now!
                 </div>) : (
                   <div className="deal__button">
@@ -354,24 +356,26 @@ const Card = (props) => {
                   </div>)}
 
               <div className="deal__price">
-                <div className="tooltip">
-                  {item.price ? priceConverter(props.currency, item.price.price) : ''}
+                <div className="tooltip" >
+                  {item.price ? (
+                    <span data-testid="price">{priceConverter(props.currency, item.price.price)}</span>
+                  ) : ''}
 
-                  {item.price && item.price.taxes_and_fees ? (<div className="deal__price__tax">
+                  {item.price && item.price.taxes_and_fees ? (<div className="deal__price__tax" data-testid="tax-included-msg">
                     <p>*tax-inclusive</p>
                   </div>) : ''}
                   {item.price && item.price.taxes_and_fees ? (
                     <span className="tooltiptext">
-                      <p className='fees'>{item.price.taxes_and_fees.tax ? `tax: $${item.price.taxes_and_fees.tax}` : ''}</p>
-                      <p className='fees'>{item.price.taxes_and_fees.hotel_fees ? `hotel fees: $${item.price.taxes_and_fees.hotel_fees}` : ''}</p>
+                      <p className='fees' data-testid="tax">{item.price.taxes_and_fees.tax ? `tax: $${item.price.taxes_and_fees.tax}` : ''}</p>
+                      <p className='fees' data-testid="hotel-fee">{item.price.taxes_and_fees.hotel_fees ? `hotel fees: $${item.price.taxes_and_fees.hotel_fees}` : ''}</p>
                     </span>) : ''}
                 </div>
               </div>
 
               {item.price && item.price.savedCost > 0 ? (
                 <div className="deal__savedCost">
-                  <span className="deal__savedCost--strikethrough">${Math.round(item.price.savedCost + item.price.price).toLocaleString()}</span>
-                  <span className="deal__savedCost--highlight">Save {(100 * item.price.savedCost / item.price.price).toFixed(1)}% !</span>
+                  <span className="deal__savedCost--strikethrough" data-testid="expensive-price">${Math.round(item.price.savedCost + item.price.price).toLocaleString()}</span>
+                  <span className="deal__savedCost--highlight" data-testid="saved-percentage">Save {(100 * item.price.savedCost / item.price.price).toFixed(1)}% !</span>
                 </div>) : ''}
 
             </div>

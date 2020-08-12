@@ -23,11 +23,11 @@ const Converter = (props) => {
   return (
     <ConverterContainer>
       <p>Currency</p>
-      <select name="currency" id="currency" form="currencyForm" onChange={handleCurrencyChange} value={currency}>
-        <option value="USD">USD</option>
-        <option value="SGD">SGD</option>
-        <option value="CNY">CNY</option>
-        <option value="KRW">KRW</option>
+      <select name="currency" id="currency" form="currencyForm" onChange={handleCurrencyChange} value={currency} data-testid="currency">
+        <option value="USD" data-testid="usd">USD</option>
+        <option value="SGD" data-testid="sgd">SGD</option>
+        <option value="CNY" data-testid="cny">CNY</option>
+        <option value="KRW" data-testid="krw">KRW</option>
       </select>
     </ConverterContainer>
   )

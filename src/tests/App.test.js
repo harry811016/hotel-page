@@ -1,9 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import 'normalize.css'
+import { render, cleanup } from '@testing-library/react'
 import { ThemeProvider } from 'emotion-theming'
-import App from './App'
+import App from '../App'
 
 const theme = {
   colors: {
@@ -20,11 +18,9 @@ const theme = {
   }
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+afterEach(cleanup)
+
+it('should take a snapshot', () => {
+  const { asFragment } = render(<ThemeProvider theme={theme}><App /></ThemeProvider>)
+  expect(asFragment(<ThemeProvider theme={theme}><App /></ThemeProvider>)).toMatchSnapshot()
+})

@@ -40,10 +40,11 @@ const Navbar = (props) => {
   return (
     <NavbarContainer>
       <Title>
-        <div className="img">
+        <div className="img" data-testid="logo">
           <img src="https://tsungtingdu.github.io/hotel-page/assets/hotel.png" alt="" />
         </div>
-        Your Hotel.com
+        <div data-testid="title">Your Hotel.com</div>
+
       </Title>
       <Converter handleCurrencyChange={handleCurrencyChange} currency={props.currency} />
     </NavbarContainer>

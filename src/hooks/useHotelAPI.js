@@ -26,6 +26,8 @@ const useHotelAPI = (currency) => {
       fetchPrice(currency)
     ])
 
+    console.log(infoData)
+    console.log(originalPriceData)
     // transform array data to object data
     const priceData = {}
     originalPriceData.forEach(i => {
