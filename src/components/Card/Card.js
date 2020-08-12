@@ -234,16 +234,17 @@ const CardItem = styled.div`
       flex-flow: column;
       justify-content: flex-start;
       align-items: flex-start;
-      width: 120px;
-      /* color: #008009; */
-      background-color: rgba(0,128,9,0.25);
+      width: 150px;
+      background-color: rgba(255,255,255,1);
+      border: 1px solid rgb(254, 186, 2);
+      border-radius: 5px;
       text-align: center;
       border-radius: 6px;
       padding: 0.5rem;
       font-size: 0.8rem;
       
       position: absolute;
-      transform: translate(-110%, -100%);
+      transform: translate(-105%, -100%);
       z-index: 1;
 
       p {
