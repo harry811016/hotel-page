@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { rgba } from 'emotion-rgba'
 
 const CardContainer = styled.div`
   padding: 7rem 0 5rem;
