@@ -11,6 +11,11 @@ const NavbarContainer = styled.div`
   padding: 0 2rem;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
 `;
 
 const Navbar = (props) => {

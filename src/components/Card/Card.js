@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 const CardContainer = styled.div`
-  padding: 5rem;
+  padding: 7rem 0 5rem;
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
