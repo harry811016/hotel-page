@@ -258,6 +258,19 @@ const CardItem = styled.div`
   }
 `
 
+const EmptyMsg = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 800;
+  padding: 2rem;
+  color: ${props => props.theme.colors.bg_grey};
+  text-align: center;
+`
+
 const Card = (props) => {
   const hoteldata = props.hoteldata
   const starConverter = (stars) => {
@@ -302,87 +315,88 @@ const Card = (props) => {
 
   return (
     <CardContainer>
-      {hoteldata.map(item => {
-        return (
-          <CardItem key={item.id}>
-            {/* Left part - pciture */}
-            <div className="img"><img src={item.photo} alt="" /></div>
+      {hoteldata.length > 0 ?
+        (
+          hoteldata.map(item => {
+            return (
+              <CardItem key={item.id}>
+                {/* Left part - pciture */}
+                <div className="img"><img src={item.photo} alt="" /></div>
 
-            {/* Middle part - hotel and competitor info */}
-            <div className="info">
-              <div className="info__main">
-                <div className="info__main__name" data-testid="name">{item.name}</div>
-                <div className="info__main__address" data-testid="address">{item.address}</div>
-                {item.stars || item.stars === 0 ? (<div className="info__main__stars" data-testid="stars">{starConverter(item.stars)}</div>) : ''}
-              </div>
-              <div className="info__bottomWrapper">
-                {item.rating || item.rating === 0 ? (<div className="info__bottomWrapper__rating" data-testid="rating">{item.rating}</div>) : ''}
-                <div className="info__bottomWrapper__more" onClick={showDescription} id={item.id} data-testid="more">see more</div>
-
-                {/* description */}
-                <div className="description d-none" >
-                  <div className="description__text" data-testid="description">
+                {/* Middle part - hotel and competitor info */}
+                <div className="info">
+                  <div className="info__main">
+                    <div className="info__main__name" data-testid="name">{item.name}</div>
+                    <div className="info__main__address" data-testid="address">{item.address}</div>
+                    {item.stars || item.stars === 0 ? (<div className="info__main__stars" data-testid="stars">{starConverter(item.stars)}</div>) : ''}
                   </div>
-                  <div className="description__button" data-testid="description-btn">back</div>
+                  <div className="info__bottomWrapper">
+                    {item.rating || item.rating === 0 ? (<div className="info__bottomWrapper__rating" data-testid="rating">{item.rating}</div>) : ''}
+                    <div className="info__bottomWrapper__more" onClick={showDescription} id={item.id} data-testid="more">see more</div>
+
+                    {/* description */}
+                    <div className="description d-none" >
+                      <div className="description__text" data-testid="description">
+                      </div>
+                      <div className="description__button" data-testid="description-btn">back</div>
+                    </div>
+                  </div>
+
+                  {/* competitors */}
+                  <div className="info__competitors">
+                    {item.price && item.price.competitionSet.length > 1 && item.price.savedCost > 0 ? (item.price.competitionSet.map(item => {
+                      if (item.name === 'Our Price') {
+                        return (<div className="info__competitors__item highlight" key={item.name}>
+                          <p className='name'>{item.name}</p>
+                          <p className='price'>{Math.round(item.price).toLocaleString()}</p>
+                        </div>)
+                      } else {
+                        return (<div className="info__competitors__item" key={item.name}>
+                          <p className='name'>{item.name}</p>
+                          <p className='price'>{Math.round(item.price).toLocaleString()}</p>
+                        </div>)
+                      }
+                    })) : ''}
+                  </div>
                 </div>
-              </div>
 
-              {/* competitors */}
-              <div className="info__competitors">
-                {item.price && item.price.competitionSet.length > 1 && item.price.savedCost > 0 ? (item.price.competitionSet.map(item => {
-                  if (item.name === 'Our Price') {
-                    return (<div className="info__competitors__item highlight" key={item.name}>
-                      <p className='name'>{item.name}</p>
-                      <p className='price'>{Math.round(item.price).toLocaleString()}</p>
-                    </div>)
-                  } else {
-                    return (<div className="info__competitors__item" key={item.name}>
-                      <p className='name'>{item.name}</p>
-                      <p className='price'>{Math.round(item.price).toLocaleString()}</p>
-                    </div>)
-                  }
-                })) : ''}
-              </div>
-            </div>
-
-            {/* Right part - price and CTA button */}
-            <div className="deal" data-testid="deal">
-              {item.price ? (
-                <div className="deal__button cursor" data-testid="cta-btn">
-                  Book now!
-                </div>) : (
-                  <div className="deal__button">
-                    Unavailable
-                  </div>)}
-
-              <div className="deal__price">
-                <div className="tooltip" >
+                {/* Right part - price and CTA button */}
+                <div className="deal" data-testid="deal">
                   {item.price ? (
-                    <span data-testid="price">{priceConverter(props.currency, item.price.price)}</span>
-                  ) : ''}
+                    <div className="deal__button cursor" data-testid="cta-btn">
+                      Book now!
+                    </div>) : (
+                      <div className="deal__button">
+                        Unavailable
+                      </div>)}
 
-                  {item.price && item.price.taxes_and_fees ? (<div className="deal__price__tax" data-testid="tax-included-msg">
-                    <p>*tax-inclusive</p>
-                  </div>) : ''}
-                  {item.price && item.price.taxes_and_fees ? (
-                    <span className="tooltiptext">
-                      <p className='fees' data-testid="tax">{item.price.taxes_and_fees.tax ? `tax: $${item.price.taxes_and_fees.tax}` : ''}</p>
-                      <p className='fees' data-testid="hotel-fee">{item.price.taxes_and_fees.hotel_fees ? `hotel fees: $${item.price.taxes_and_fees.hotel_fees}` : ''}</p>
-                    </span>) : ''}
+                  <div className="deal__price">
+                    <div className="tooltip" >
+                      {item.price ? (
+                        <span data-testid="price">{priceConverter(props.currency, item.price.price)}</span>
+                      ) : ''}
+
+                      {item.price && item.price.taxes_and_fees ? (<div className="deal__price__tax" data-testid="tax-included-msg">
+                        <p>*tax-inclusive</p>
+                      </div>) : ''}
+                      {item.price && item.price.taxes_and_fees ? (
+                        <span className="tooltiptext">
+                          <p className='fees' data-testid="tax">{item.price.taxes_and_fees.tax ? `tax: $${item.price.taxes_and_fees.tax}` : ''}</p>
+                          <p className='fees' data-testid="hotel-fee">{item.price.taxes_and_fees.hotel_fees ? `hotel fees: $${item.price.taxes_and_fees.hotel_fees}` : ''}</p>
+                        </span>) : ''}
+                    </div>
+                  </div>
+
+                  {item.price && item.price.savedCost > 0 ? (
+                    <div className="deal__savedCost">
+                      <span className="deal__savedCost--strikethrough" data-testid="expensive-price">${Math.round(item.price.savedCost + item.price.price).toLocaleString()}</span>
+                      <span className="deal__savedCost--highlight" data-testid="saved-percentage">Save {(100 * item.price.savedCost / item.price.price).toFixed(1)}% !</span>
+                    </div>) : ''}
+
                 </div>
-              </div>
-
-              {item.price && item.price.savedCost > 0 ? (
-                <div className="deal__savedCost">
-                  <span className="deal__savedCost--strikethrough" data-testid="expensive-price">${Math.round(item.price.savedCost + item.price.price).toLocaleString()}</span>
-                  <span className="deal__savedCost--highlight" data-testid="saved-percentage">Save {(100 * item.price.savedCost / item.price.price).toFixed(1)}% !</span>
-                </div>) : ''}
-
-            </div>
-          </CardItem>
-        )
-      })
-      }
+              </CardItem>
+            )
+          })) : <EmptyMsg>Sorry, no result for this search.</EmptyMsg>}
     </CardContainer>
   )
 }

@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import Card from './components/Card/Card'
-import useHotelAPI from './hooks/useHotelAPI'
+import hotelApis from './hooks/useHotelAPI'
+
+const useHotelAPI = hotelApis.useHotelAPI
 
 const App = () => {
   const [currency, setCurrency] = useState('USD')
