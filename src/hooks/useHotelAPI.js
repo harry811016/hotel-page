@@ -28,8 +28,12 @@ const useHotelAPI = (currency) => {
   })
 
   const fetchHoteldata = useCallback(async () => {
-    const infoData = await fetchHotel()
-    const originalPriceData = await fetchPrice(currency)
+    // const infoData = await fetchHotel()
+    // const originalPriceData = await fetchPrice(currency)
+
+    const [infoData, originalPriceData] = await Promise.all([
+      fetchHotel(), fetchPrice(currency)
+    ])
 
     if (infoData.length > 0) {
       // transform array data to object data
