@@ -272,7 +272,9 @@ const EmptyMsg = styled.div`
 `
 
 const Card = (props) => {
-  const hoteldata = props.hoteldata
+  const { isLoading, data, currency } = props.hoteldata
+  const hoteldata = data
+
   const starConverter = (stars) => {
     stars = Math.round(stars)
     let str = ''
@@ -312,10 +314,9 @@ const Card = (props) => {
       modal.classList.add('d-none')
     })
   }
-
   return (
     <CardContainer>
-      {hoteldata.length > 0 ?
+      {hoteldata.length > 0 && !isLoading ?
         (
           hoteldata.map(item => {
             return (
@@ -373,7 +374,7 @@ const Card = (props) => {
                   <div className="deal__price">
                     <div className="tooltip" >
                       {item.price ? (
-                        <span data-testid="price">{priceConverter(props.currency, item.price.price)}</span>
+                        <span data-testid="price">{priceConverter(currency, item.price.price)}</span>
                       ) : ''}
 
                       {item.price && item.price.taxes_and_fees ? (<div className="deal__price__tax" data-testid="tax-included-msg">
@@ -396,7 +397,7 @@ const Card = (props) => {
                 </div>
               </CardItem>
             )
-          })) : <EmptyMsg>Sorry, no result for this search.</EmptyMsg>}
+          })) : (isLoading ? <EmptyMsg>Loading...</EmptyMsg> : <EmptyMsg>Sorry, no result for this search.</EmptyMsg>)}
     </CardContainer>
   )
 }

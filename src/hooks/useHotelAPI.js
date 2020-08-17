@@ -21,7 +21,11 @@ const fetchPrice = (currency) => {
 }
 
 const useHotelAPI = (currency) => {
-  const [hoteldata, setHoteldata] = useState([])
+  const [hoteldata, setHoteldata] = useState({
+    isLoading: true,
+    currency: currency,
+    data: []
+  })
 
   const fetchHoteldata = useCallback(async () => {
     const infoData = await fetchHotel()
@@ -75,9 +79,17 @@ const useHotelAPI = (currency) => {
       })
 
       availableData = availableData.concat(unavailableData)
-      setHoteldata(availableData)
+      setHoteldata({
+        isLoading: false,
+        currency: currency,
+        data: availableData
+      })
     } else {
-      setHoteldata([])
+      setHoteldata({
+        isLoading: false,
+        currency: currency,
+        data: []
+      })
     }
   }, [currency])
 

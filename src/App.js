@@ -6,7 +6,7 @@ import useHotelAPI from './hooks/useHotelAPI'
 // const useHotelAPI = hotelApis.useHotelAPI
 
 const App = () => {
-  const [currency, setCurrency] = useState('USD')
+  const [currency, setCurrency] = useState(window.localStorage.getItem('hotelPageCurrency') ? window.localStorage.getItem('hotelPageCurrency') : 'USD')
   const [hoteldata, fetchHoteldata] = useHotelAPI(currency)
 
   const handleCurrencyChange = (e) => {
@@ -22,7 +22,7 @@ const App = () => {
   return (
     <Fragment>
       <Navbar handleCurrencyChange={handleCurrencyChange} currency={currency} />
-      <Card currency={currency} hoteldata={hoteldata} />
+      <Card hoteldata={hoteldata} />
     </Fragment>
   )
 }
