@@ -7,8 +7,13 @@ exports[`should take a snapshot 1`] = `
     handleCurrencyChange={[Function]}
   />
   <Card
-    currency="USD"
-    hoteldata={Array []}
+    hoteldata={
+      Object {
+        "currency": "USD",
+        "data": Array [],
+        "isLoading": true,
+      }
+    }
   />
 </React.Fragment>
 `;

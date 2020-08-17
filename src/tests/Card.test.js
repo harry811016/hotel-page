@@ -26,8 +26,7 @@ it('should take a snapshot', () => {
   const { asFragment } = render(
     <ThemeProvider theme={theme}>
       <Card
-        currency={mockDataSet.set1.currency}
-        hoteldata={mockDataSet.set1.data}
+        hoteldata={mockDataSet.set1}
       />
     </ThemeProvider>)
   expect(asFragment(<ThemeProvider theme={theme}><Card /></ThemeProvider>)).toMatchSnapshot()
@@ -35,13 +34,10 @@ it('should take a snapshot', () => {
 
 // [Mock data set 1] show basic info with SGD
 it('select currency as SGD', () => {
-  const currency = mockDataSet.set1.currency
-  const data = mockDataSet.set1.data[0]
   const { getByTestId } = render(
     <ThemeProvider theme={theme}>
       <Card
-        currency={mockDataSet.set1.currency}
-        hoteldata={mockDataSet.set1.data}
+        hoteldata={mockDataSet.set1}
       />
     </ThemeProvider>)
 
@@ -66,12 +62,10 @@ it('select currency as SGD', () => {
 
 // show description after clicked see more button
 it('show description after clicked "see more" button', () => {
-  const data = mockDataSet.set1.data[0]
   const { getByTestId } = render(
     <ThemeProvider theme={theme}>
       <Card
-        currency={mockDataSet.set1.currency}
-        hoteldata={mockDataSet.set1.data}
+        hoteldata={mockDataSet.set1}
       />
     </ThemeProvider>)
   fireEvent.click(getByTestId('more'))
@@ -85,8 +79,7 @@ it('change currency to KRW', () => {
   const { getByTestId, queryByText } = render(
     <ThemeProvider theme={theme}>
       <Card
-        currency={mockDataSet.set2.currency}
-        hoteldata={mockDataSet.set2.data}
+        hoteldata={mockDataSet.set2}
       />
     </ThemeProvider>)
 
@@ -118,8 +111,7 @@ it('price data unavailable', () => {
   const { getByTestId, queryByText } = render(
     <ThemeProvider theme={theme}>
       <Card
-        currency={mockDataSet.set3.currency}
-        hoteldata={mockDataSet.set3.data}
+        hoteldata={mockDataSet.set3}
       />
     </ThemeProvider>)
   expect(getByTestId('deal')).toHaveTextContent('Unavailable')
@@ -130,8 +122,7 @@ it('price data unavailable', () => {
   const { getByTestId } = render(
     <ThemeProvider theme={theme}>
       <Card
-        currency={mockDataSet.set4.currency}
-        hoteldata={mockDataSet.set4.data}
+        hoteldata={mockDataSet.set4}
       />
     </ThemeProvider>)
   expect(getByTestId('stars')).toHaveTextContent('')

@@ -22,7 +22,8 @@ const mockDataSet = {
           tax: 13.12
         }
       }
-    }]
+    }],
+    isLoading: false
   },
   set2: {
     currency: 'KRW',
@@ -43,7 +44,8 @@ const mockDataSet = {
         ],
         savedCost: 14816
       }
-    }]
+    }],
+    isLoading: false
   },
   set3: {
     currency: 'KRW',
@@ -56,7 +58,8 @@ const mockDataSet = {
       photo: "https://d2ey9sqrvkqdfs.cloudfront.net/ZqSQ/i1_t.jpg",
       description: "KRW hotel description",
       price: null
-    }]
+    }],
+    isLoading: false
   },
   set4: {
     currency: 'KRW',
@@ -69,7 +72,8 @@ const mockDataSet = {
       photo: "https://d2ey9sqrvkqdfs.cloudfront.net/ZqSQ/i1_t.jpg",
       description: "KRW hotel description",
       price: null
-    }]
+    }],
+    isLoading: false
   }
 }
 
