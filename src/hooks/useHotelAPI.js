@@ -97,10 +97,6 @@ const useHotelAPI = (currency) => {
     }
   }, [currency])
 
-  useEffect(() => {
-    fetchHoteldata()
-  }, [fetchHoteldata])
-
   return [hoteldata, fetchHoteldata]
 }
 
