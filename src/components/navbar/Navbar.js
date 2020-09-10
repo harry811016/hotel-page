@@ -36,7 +36,7 @@ const Title = styled.div`
 `
 
 const Navbar = (props) => {
-  const { handleCurrencyChange } = props
+  const { handleCurrencyChange, currency } = props
   return (
     <NavbarContainer>
       <Title>
@@ -46,7 +46,7 @@ const Navbar = (props) => {
         <div data-testid="title">Your Hotel.com</div>
 
       </Title>
-      <Converter handleCurrencyChange={handleCurrencyChange} currency={props.currency} />
+      <Converter handleCurrencyChange={handleCurrencyChange} currency={currency} />
     </NavbarContainer>
   )
 }
